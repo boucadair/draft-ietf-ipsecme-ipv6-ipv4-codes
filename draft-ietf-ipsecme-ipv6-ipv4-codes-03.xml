@@ -284,14 +284,14 @@
         <c>IP4_ALLOWED, IP6_ALLOWED</c>
       </texttable>
 
-      <t>If the initiator receives IP4_ALLOWED or IP6_ALLOWED notification
-      status type from the responder, the initiator MUST NOT send a request
+      <t>If the initiator only receives one single notification IP4_ALLOWED or
+      IP6_ALLOWED from the responder, the initiator MUST NOT send a request
       for an alternate address family not supported by the responder.</t>
 
       <t>If a dual-stack initiator requests only an IPv6 prefix (or an IPv4
-      address) but receives IP4_ALLOWED (or IP6_ALLOWED) notification status
-      type from the responder, the initiator MUST send a request for IPv4
-      address(es) (or IPv6 prefix(es)).</t>
+      address) but only receives IP4_ALLOWED (or IP6_ALLOWED) notification
+      status type from the responder, the initiator MUST send a request for
+      IPv4 address(es) (or IPv6 prefix(es)).</t>
 
       <t>If a dual-stack initiator requests both an IPv6 prefix and an IPv4
       address but receives an IPv6 prefix (or an IPv4 address) only with both

@@ -226,12 +226,12 @@ Boucadair               Expires October 19, 2019                [Page 4]
 Internet-Draft            An Update to RFC7296                April 2019
 
 
-   If the initiator receives IP4_ALLOWED or IP6_ALLOWED notification
-   status type from the responder, the initiator MUST NOT send a request
+   If the initiator only receives one single notification IP4_ALLOWED or
+   IP6_ALLOWED from the responder, the initiator MUST NOT send a request
    for an alternate address family not supported by the responder.
 
    If a dual-stack initiator requests only an IPv6 prefix (or an IPv4
-   address) but receives IP4_ALLOWED (or IP6_ALLOWED) notification
+   address) but only receives IP4_ALLOWED (or IP6_ALLOWED) notification
    status type from the responder, the initiator MUST send a request for
    IPv4 address(es) (or IPv6 prefix(es)).
 
