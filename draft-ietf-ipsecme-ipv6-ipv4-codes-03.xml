@@ -34,8 +34,8 @@
 <rfc category="std" docName="draft-ietf-ipsecme-ipv6-ipv4-codes-03"
      ipr="trust200902" updates="7296">
   <front>
-    <title abbrev="An Update to RFC7296">IKEv2 Notification Status Types for
-    IPv4/IPv6 Coexistence</title>
+    <title abbrev="IPv4/IPv6 Notification Status Types">IKEv2 Notification
+    Status Types for IPv4/IPv6 Coexistence</title>
 
     <author fullname="Mohamed Boucadair" initials="M." surname="Boucadair">
       <organization>Orange</organization>
@@ -57,7 +57,7 @@
 
     <date day="17" month="April" year="2019" />
 
-    <area>ipsecme</area>
+    <workgroup>ipsecme</workgroup>
 
     <keyword>IPv4 service continuity</keyword>
 
@@ -164,7 +164,7 @@
 
       <t><xref target="RFC7296">Section 3.15.4 of</xref> defines a generic
       notification error type that is related to a failure to handle an
-      internal address failure. That error type does not explicitly allow an
+      address assignment request. That error type does not explicitly allow an
       initiator to determine why a given address family is not assigned, nor
       whether it should try using another address family.
       INTERNAL_ADDRESS_FAILURE is a catch-all error type when an

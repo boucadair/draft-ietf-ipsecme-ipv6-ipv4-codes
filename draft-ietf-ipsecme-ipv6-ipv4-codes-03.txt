@@ -2,7 +2,7 @@
 
 
 
-Network Working Group                                       M. Boucadair
+ipsecme                                                     M. Boucadair
 Internet-Draft                                                    Orange
 Updates: 7296 (if approved)                               April 17, 2019
 Intended status: Standards Track
@@ -55,7 +55,7 @@ Copyright Notice
 
 Boucadair               Expires October 19, 2019                [Page 1]
 
-Internet-Draft            An Update to RFC7296                April 2019
+Internet-Draft     IPv4/IPv6 Notification Status Types        April 2019
 
 
 Table of Contents
@@ -111,7 +111,7 @@ Table of Contents
 
 Boucadair               Expires October 19, 2019                [Page 2]
 
-Internet-Draft            An Update to RFC7296                April 2019
+Internet-Draft     IPv4/IPv6 Notification Status Types        April 2019
 
 
    When the UE attaches the network using a WLAN access by means of
@@ -158,7 +158,7 @@ Internet-Draft            An Update to RFC7296                April 2019
       reasons.
 
    Section 3.15.4 of [RFC7296] defines a generic notification error type
-   that is related to a failure to handle an internal address failure.
+   that is related to a failure to handle an address assignment request.
    That error type does not explicitly allow an initiator to determine
    why a given address family is not assigned, nor whether it should try
    using another address family.  INTERNAL_ADDRESS_FAILURE is a catch-
@@ -167,7 +167,7 @@ Internet-Draft            An Update to RFC7296                April 2019
 
 Boucadair               Expires October 19, 2019                [Page 3]
 
-Internet-Draft            An Update to RFC7296                April 2019
+Internet-Draft     IPv4/IPv6 Notification Status Types        April 2019
 
 
    all error type when an address-related issue is encountered by an
@@ -223,7 +223,7 @@ Internet-Draft            An Update to RFC7296                April 2019
 
 Boucadair               Expires October 19, 2019                [Page 4]
 
-Internet-Draft            An Update to RFC7296                April 2019
+Internet-Draft     IPv4/IPv6 Notification Status Types        April 2019
 
 
    If the initiator only receives one single notification IP4_ALLOWED or
@@ -279,7 +279,7 @@ Internet-Draft            An Update to RFC7296                April 2019
 
 Boucadair               Expires October 19, 2019                [Page 5]
 
-Internet-Draft            An Update to RFC7296                April 2019
+Internet-Draft     IPv4/IPv6 Notification Status Types        April 2019
 
 
 9.  References
