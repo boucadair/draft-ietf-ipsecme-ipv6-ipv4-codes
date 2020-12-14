@@ -269,7 +269,7 @@ Internet-Draft     IPv4/IPv6 Notification Status Types     December 2020
    address family using the new IKE SA.
 
    For other address-related error cases that have not been covered by
-   the aforementioned notification status types, the repsonder/initiator
+   the aforementioned notification status types, the responder/initiator
    MUST follow the procedure defined in Section 3.15.4 of [RFC7296].
 
 

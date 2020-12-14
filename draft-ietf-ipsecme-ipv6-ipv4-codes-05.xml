@@ -243,7 +243,7 @@
       using the new IKE SA.</t>
 
       <t>For other address-related error cases that have not been covered by
-      the aforementioned notification status types, the repsonder/initiator
+      the aforementioned notification status types, the responder/initiator
       MUST follow the procedure defined in <xref target="RFC7296">Section
       3.15.4 of</xref>.</t>
     </section>
