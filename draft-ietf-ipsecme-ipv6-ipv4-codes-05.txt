@@ -80,12 +80,12 @@ Table of Contents
 
    As described in [RFC7849], if the subscription data or network
    configuration allows only one IP address family (IPv4 or IPv6), the
-   cellular host must not request a second PDP-Context to the same
-   Access Point Name (APN) for the other IP address family (AF).  The
-   Third Generation Partnership Project (3GPP) network informs the
-   cellular host about allowed Packet Data Protocol (PDP) types by means
-   of Session Management (SM) cause codes.  In particular, the following
-   cause codes can be returned:
+   cellular host must not request a second PDP-Context (Section 3.2 of
+   [RFC6459]) to the same Access Point Name (APN) for the other IP
+   address family (AF).  The Third Generation Partnership Project (3GPP)
+   network informs the cellular host about allowed Packet Data Protocol
+   (PDP) types by means of Session Management (SM) cause codes.  In
+   particular, the following cause codes can be returned:
 
    o  cause #50 "PDP type IPv4 only allowed": This cause code is used by
       the network to indicate that only PDP type IPv4 is allowed for the
@@ -117,12 +117,12 @@ Internet-Draft     IPv4/IPv6 Notification Status Types     December 2020
    connectivity (that is, IPv4 and IPv6 connectivity) by means of two
    PDP-Contexts.
 
-   When the User Equipment (UE) attaches the 3GPP network using a non-
-   3GPP access network (e.g., Wireless Local Area Network (WLAN)), there
-   are no equivalent Internet Key Exchange Protocol Version 2 (IKEv2)
-   capabilities [RFC7296] notification codes for the 3GPP network to
-   inform the UE why an IP address family is not assigned or whether
-   that UE should retry with another address family.
+   When the User Equipment (UE) attaches to the 3GPP network using a
+   non-3GPP access network (e.g., Wireless Local Area Network (WLAN)),
+   there are no equivalent Internet Key Exchange Protocol Version 2
+   (IKEv2) capabilities [RFC7296] notification codes for the 3GPP
+   network to inform the UE why an IP address family is not assigned or
+   whether that UE should retry with another address family.
 
    This document fills that void by introducing new IKEv2 notification
    status types for the sake of deterministic UE behaviors (Section 4).
@@ -340,6 +340,12 @@ Internet-Draft     IPv4/IPv6 Notification Status Types     December 2020
 
 9.2.  Informative References
 
+   [RFC6459]  Korhonen, J., Ed., Soininen, J., Patil, B., Savolainen,
+              T., Bajko, G., and K. Iisakkila, "IPv6 in 3rd Generation
+              Partnership Project (3GPP) Evolved Packet System (EPS)",
+              RFC 6459, DOI 10.17487/RFC6459, January 2012,
+              <https://www.rfc-editor.org/info/rfc6459>.
+
    [RFC7849]  Binet, D., Boucadair, M., Vizdal, A., Chen, G., Heatley,
               N., Chandler, R., Michaud, D., Lopez, D., and W. Haeffner,
               "An IPv6 Profile for 3GPP Mobile Devices", RFC 7849,
@@ -354,12 +360,6 @@ Author's Address
    France
 
    Email: mohamed.boucadair@orange.com
-
-
-
-
-
-
 
 
 

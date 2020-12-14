@@ -90,12 +90,13 @@
     <section title="Introduction">
       <t>As described in <xref target="RFC7849"></xref>, if the subscription
       data or network configuration allows only one IP address family (IPv4 or
-      IPv6), the cellular host must not request a second PDP-Context to the
-      same Access Point Name (APN) for the other IP address family (AF). The
-      Third Generation Partnership Project (3GPP) network informs the cellular
-      host about allowed Packet Data Protocol (PDP) types by means of Session
-      Management (SM) cause codes. In particular, the following cause codes
-      can be returned: <list style="symbols">
+      IPv6), the cellular host must not request a second PDP-Context (Section
+      3.2 of <xref target="RFC6459"></xref>) to the same Access Point Name
+      (APN) for the other IP address family (AF). The Third Generation
+      Partnership Project (3GPP) network informs the cellular host about
+      allowed Packet Data Protocol (PDP) types by means of Session Management
+      (SM) cause codes. In particular, the following cause codes can be
+      returned: <list style="symbols">
           <t>cause #50 "PDP type IPv4 only allowed": This cause code is used
           by the network to indicate that only PDP type IPv4 is allowed for
           the requested Public Data Network (PDN) connectivity.</t>
@@ -118,7 +119,7 @@
       initiating a second PDP-Context is to achieve dual-stack connectivity
       (that is, IPv4 and IPv6 connectivity) by means of two PDP-Contexts.</t>
 
-      <t>When the User Equipment (UE) attaches the 3GPP network using a
+      <t>When the User Equipment (UE) attaches to the 3GPP network using a
       non-3GPP access network (e.g., Wireless Local Area Network (WLAN)),
       there are no equivalent Internet Key Exchange Protocol Version 2 (IKEv2)
       capabilities <xref target="RFC7296"></xref> notification codes for the
@@ -291,6 +292,8 @@
 
     <references title="Informative References">
       <?rfc include="reference.RFC.7849"?>
+
+      <?rfc include='reference.RFC.6459'?>
 
       <!---->
     </references>
