@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!-- This template is for creating an Internet Draft using xml2rfc,
+     which is available here: http://xml.resource.org. -->
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!-- One method to get references from the online citation libraries.
+     There has to be one entity for each item to be referenced. 
+     An alternate method (rfc include) is described in the references. -->
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<!-- used by XSLT processors -->
+<!-- For a complete list and description of processing instructions (PIs), 
+     please see http://xml.resource.org/authoring/README.html. -->
+<!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
+     (Here they are set differently than their defaults in xml2rfc v1.32) -->
+<?rfc strict="yes" ?>
+<!-- give errors regarding ID-nits and DTD validation -->
+<!-- control the table of contents (ToC) -->
+<?rfc toc="yes"?>
+<!-- generate a ToC -->
+<?rfc tocdepth="4"?>
+<!-- the number of levels of subsections in ToC. default: 3 -->
+<!-- control references -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes" ?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space 
+     (using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="yes" ?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no" ?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+<rfc category="std" docName="draft-ietf-ipsecme-ipv6-ipv4-codes-06"
+     ipr="trust200902" updates="7296">
+  <front>
+    <title abbrev="IPv4/IPv6 Notification Status Types">IKEv2 Notification
+    Status Types for IPv4/IPv6 Coexistence</title>
+
+    <author fullname="Mohamed Boucadair" initials="M." surname="Boucadair">
+      <organization>Orange</organization>
+
+      <address>
+        <postal>
+          <street></street>
+
+          <city>Rennes</city>
+
+          <code>35000</code>
+
+          <country>France</country>
+        </postal>
+
+        <email>mohamed.boucadair@orange.com</email>
+      </address>
+    </author>
+
+    <date day="16" month="December" year="2020" />
+
+    <workgroup>ipsecme</workgroup>
+
+    <keyword>IPv4 service continuity</keyword>
+
+    <keyword>VoLTE</keyword>
+
+    <keyword>Handover</keyword>
+
+    <keyword>Service continuity</keyword>
+
+    <keyword>3GPP</keyword>
+
+    <keyword>IPv6 transition</keyword>
+
+    <keyword>TS.24302</keyword>
+
+    <keyword>PDP context</keyword>
+
+    <keyword>PDP type</keyword>
+
+    <abstract>
+      <t>This document specifies new IKEv2 notification status types to better
+      manage IPv4 and IPv6 co-existence.</t>
+
+      <t>This document updates RFC7296.</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction">
+      <t>As described in <xref target="RFC7849"></xref>, if the subscription
+      data or network configuration allows only one IP address family (IPv4 or
+      IPv6), the cellular host must not request a second PDP-Context to the
+      same Access Point Name (APN) for the other IP address family (AF). The
+      Third Generation Partnership Project (3GPP) network informs the cellular
+      host about allowed Packet Data Protocol (PDP) types by means of Session
+      Management (SM) cause codes. In particular, the following cause codes
+      can be returned: <list style="symbols">
+          <t>cause #50 "PDP type IPv4 only allowed": This cause code is used
+          by the network to indicate that only PDP type IPv4 is allowed for
+          the requested Public Data Network (PDN) connectivity.</t>
+
+          <t>cause #51 "PDP type IPv6 only allowed": This cause code is used
+          by the network to indicate that only PDP type IPv6 is allowed for
+          the requested PDN connectivity.</t>
+
+          <t>cause #52 "single address bearers only allowed": This cause code
+          is used by the network to indicate that the requested PDN
+          connectivity is accepted with the restriction that only single IP
+          version bearers are allowed.</t>
+        </list></t>
+
+      <t>If the requested IPv4v6 PDP-Context is not supported by the network
+      but IPv4 and IPv6 PDP types are allowed, then the cellular host will be
+      configured with an IPv4 address or an IPv6 prefix by the network. It
+      must initiate another PDP-Context activation of the other address family
+      in addition to the one already activated for a given APN. The purpose of
+      initiating a second PDP-Context is to achieve dual-stack connectivity
+      (that is, IPv4 and IPv6 connectivity) by means of two PDP-Contexts.</t>
+
+      <t>When the User Equipment (UE) attaches the network using a Wireless
+      Local Area Network (WLAN) access by means of Internet Key Exchange
+      Protocol Version 2 (IKEv2) capabilities <xref target="RFC7296"></xref>,
+      there are no equivalent notification codes to inform the UE why an IP
+      address family is not assigned or whether that UE should retry with
+      another address family. </t>
+
+      <t>This document fills that void by introducing new IKEv2 notification
+      status types for the sake of deterministic UE behaviors (<xref
+      target="new"></xref>).</t>
+
+      <t>These notification status types are not specific to 3GPP
+      architectures, but can be used in other deployment contexts. Cellular
+      networks are provided as an illustration example.</t>
+    </section>
+
+    <section anchor="notation" title="Terminology">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in BCP 14
+      <xref target="RFC2119"></xref><xref target="RFC8174"></xref> when, and
+      only when, they appear in all capitals, as shown here.</t>
+
+      <t>This document makes use of the terms defined in <xref
+      target="RFC7296"></xref>. In particular, readers should be familiar with
+      "initiator" and "responder" terms used in that document.</t>
+    </section>
+
+    <section title="Why Not INTERNAL_ADDRESS_FAILURE?">
+      <t>The following address assignment failures may be encountered when an
+      initiator requests assignment of IP addresses/prefixes:<list
+          style="symbols">
+          <t>An initiator asks for IPvx, but IPvx address assignment is not
+          supported by the responder.</t>
+
+          <t>An initiator requests both IPv4 and IPv6 addresses, but only IPv4
+          address assignment is supported by the responder.</t>
+
+          <t>An initiator requests both IPv4 and IPv6 addresses, but only IPv6
+          prefix assignment is supported by the responder.</t>
+
+          <t>An initiator asks for both IPv4 and IPv6 addresses, but only one
+          address family can be assigned by the responder for policy
+          reasons.</t>
+        </list></t>
+
+      <t><xref target="RFC7296">Section 3.15.4 of</xref> defines a generic
+      notification error type (INTERNAL_ADDRESS_FAILURE) that is related to a
+      failure to handle an address assignment request. The responder sends
+      INTERNAL_ADDRESS_FAILURE only if no addresses can be assigned. This
+      behavior does not explicitly allow an initiator to determine why a given
+      address family is not assigned, nor whether it should try using another
+      address family. INTERNAL_ADDRESS_FAILURE is a catch-all error type when
+      an address-related issue is encountered by an IKEv2 responder.</t>
+
+      <t>INTERNAL_ADDRESS_FAILURE does not provide sufficient hints to the
+      IKEv2 initiator to adjust its behavior.</t>
+    </section>
+
+    <section anchor="new" title="IP6_ALLOWED and IP4_ALLOWED Status Types">
+      <t>IP6_ALLOWED and IP4_ALLOWED notification status types (see <xref
+      target="sec-IANA"></xref>) are defined to inform the initiator about the
+      responder's address family assignment support capabilities, and to
+      report to the initiator the reason why an address assignment failed.
+      These notification status types are used by the initiator to adjust its
+      behavior accordingly (<xref target="update"></xref>).</t>
+
+      <t>No data is associated with these notifications.</t>
+    </section>
+
+    <section anchor="update" title="An Update to RFC7296">
+      <t>If the initiator is dual-stack (i.e., supports both IPv4 and IPv6),
+      it MUST include both address families configuration attributes in its
+      configuration request (absent explicit policy/configuration otherwise).
+      More details about IPv4 and IPv6 configuration attributes are provided
+      in Section 3.15 of <xref target="RFC7296"></xref>. These attributes are
+      used to infer the requested/assigned AFs listed in Table 1.</t>
+
+      <t>The responder MUST include IP6_ALLOWED and/or IP4_ALLOWED
+      notification status type in a response to an address assignment request
+      as indicated in Table 1. <figure>
+          <artwork><![CDATA[   +----------------+----------------+---------------+-----------------+
+   |                |                |               |     Returned    |
+   |   Requested    |   Supported    |    Assigned   |   Notification  |
+   |     AF(s)      |     AF(s)      |     AF(s)     |  Status Type(s) |
+   |  (Initiator)   |  (Responder)   |  (Responder)  |   (Responder)   |
+   +----------------+----------------+---------------+-----------------+
+   |      IPv4      |      IPv6      |      None     |   IP6_ALLOWED   |
+   |      IPv4      |      IPv4      |      IPv4     |   IP4_ALLOWED   |
+   |      IPv4      | IPv4 and IPv6  |      IPv4     |   IP4_ALLOWED,  |
+   |                |                |               |   IP6_ALLOWED   |
+   |      IPv6      |      IPv6      |      IPv6     |   IP6_ALLOWED   |
+   |      IPv6      |      IPv4      |      None     |   IP4_ALLOWED   |
+   |      IPv6      | IPv4 and IPv6  |      IPv6     |   IP4_ALLOWED,  |
+   |                |                |               |   IP6_ALLOWED   |
+   | IPv4 and IPv6  |      IPv4      |      IPv4     |   IP4_ALLOWED   |
+   | IPv4 and IPv6  |      IPv6      |      IPv6     |   IP6_ALLOWED   |
+   | IPv4 and IPv6  | IPv4 and IPv6  | IPv4 and IPv6 |   IP4_ALLOWED,  |
+   |                |                |               |   IP6_ALLOWED   |
+   | IPv4 and IPv6  |  IPv4 or IPv6  |  IPv4 or IPv6 |   IP4_ALLOWED,  |
+   |                | (Policy-based) |               |   IP6_ALLOWED   |
+   +----------------+----------------+---------------+-----------------+
+
+                Table 1: Returned Notification Status Types]]></artwork>
+        </figure></t>
+
+      <t>If the initiator only receives one single notification IP4_ALLOWED or
+      IP6_ALLOWED from the responder, the initiator MUST NOT send a subsequent
+      request for an alternate address family not supported by the
+      responder.</t>
+
+      <t>If a dual-stack initiator requests only an IPv6 prefix (or an IPv4
+      address) but only receives IP4_ALLOWED (or IP6_ALLOWED) notification
+      status type from the responder, the initiator MUST send a request for
+      IPv4 address(es) (or IPv6 prefix(es)).</t>
+
+      <t>If a dual-stack initiator requests both an IPv6 prefix and an IPv4
+      address but receives an IPv6 prefix (or an IPv4 address) only with both
+      IP4_ALLOWED and IP6_ALLOWED notification status types from the
+      responder, the initiator MAY send a request for the other AF (i.e., IPv4
+      address (or IPv6 prefix)). In such case, the initiator MUST create a new
+      IKE Security Association (SA) and request that another address family
+      using the new IKE SA.</t>
+
+      <t>For other address-related error cases that have not been covered by
+      the aforementioned notification status types, the repsonder/initiator
+      MUST follow the procedure defined in <xref target="RFC7296">Section
+      3.15.4 of</xref>.</t>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>Since the IPv4/IPv6 capabilities of a node are readily determined
+      from the traffic it generates, this document does not introduce any new
+      security considerations compared to the ones described in <xref
+      target="RFC7296"></xref>, which continue to apply.</t>
+    </section>
+
+    <section anchor="sec-IANA" title="IANA Considerations">
+      <t>This document requests IANA to update the "IKEv2 Notify Message Types
+      - Status Types" registry available at:
+      https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml
+      with the following status types:</t>
+
+      <t><figure>
+          <artwork><![CDATA[Value           NOTIFY MESSAGES - STATUS TYPES     Reference
+ TBD                   IP4_ALLOWED                 [This-Document]
+ TBD                   IP6_ALLOWED                 [This-Document]]]></artwork>
+        </figure></t>
+    </section>
+
+    <section title="Acknowledgements">
+      <t>Many thanks to Christian Jacquenet for the review.</t>
+
+      <t>Thanks to Paul Wouters, Yaov Nir, Valery Smyslov, Daniel Migault,
+      Tero Kivinen, and Michael Richardson for the comments and review.</t>
+
+      <t>Thanks to Benjamin Kaduk for the AD review.</t>
+    </section>
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <references title="Normative References">
+      <?rfc include="reference.RFC.7296"?>
+
+      <?rfc include='reference.RFC.2119'?>
+
+      <?rfc include='reference.RFC.8174'?>
+    </references>
+
+    <references title="Informative References">
+      <?rfc include="reference.RFC.7849"?>
+
+      <!---->
+    </references>
+  </back>
+</rfc>
