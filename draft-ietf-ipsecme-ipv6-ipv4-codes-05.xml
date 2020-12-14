@@ -79,7 +79,8 @@
 
     <abstract>
       <t>This document specifies new IKEv2 notification status types to better
-      manage IPv4 and IPv6 co-existence.</t>
+      manage IPv4 and IPv6 co-existence by allowing the responder to signal to
+      the initiator which address families are allowed.</t>
 
       <t>This document updates RFC7296.</t>
     </abstract>
@@ -117,12 +118,12 @@
       initiating a second PDP-Context is to achieve dual-stack connectivity
       (that is, IPv4 and IPv6 connectivity) by means of two PDP-Contexts.</t>
 
-      <t>When the User Equipment (UE) attaches the network using a Wireless
-      Local Area Network (WLAN) access by means of Internet Key Exchange
-      Protocol Version 2 (IKEv2) capabilities <xref target="RFC7296"></xref>,
-      there are no equivalent notification codes to inform the UE why an IP
-      address family is not assigned or whether that UE should retry with
-      another address family. </t>
+      <t>When the User Equipment (UE) attaches the 3GPP network using a
+      non-3GPP access network (e.g., Wireless Local Area Network (WLAN)),
+      there are no equivalent Internet Key Exchange Protocol Version 2 (IKEv2)
+      capabilities <xref target="RFC7296"></xref> notification codes for the
+      3GPP network to inform the UE why an IP address family is not assigned
+      or whether that UE should retry with another address family. </t>
 
       <t>This document fills that void by introducing new IKEv2 notification
       status types for the sake of deterministic UE behaviors (<xref
